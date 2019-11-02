@@ -1,0 +1,15 @@
+.tableHeaderName {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-weight: bold;
+
+  > button {
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+}
+
+.tableHeaderFilter {
+  margin-top: 5px;
+}

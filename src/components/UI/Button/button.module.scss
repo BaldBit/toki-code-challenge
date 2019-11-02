@@ -1,0 +1,34 @@
+@import '../theme.scss';
+
+.button {
+  border-radius: 5px;
+  border: 0;
+  background-color: $color-success;
+  padding: 8px 15px;
+  color: $color-light;
+  cursor: pointer;
+  transition: .3s background-color;
+
+  &:hover {
+    background-color: darken($color-success, 5%);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.iconOnly {
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    color: $color-dark;
+    height: 18px;
+    width: 18px;
+    flex-shrink: 0;
+
+    > svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

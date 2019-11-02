@@ -1,0 +1,13 @@
+@import '../theme.scss';
+
+.dropdown {
+  border-radius: 5px;
+  border: 1px solid $color-gray-light;
+  padding: 5px 8px;
+  width: 100%;
+  transition: border-color .3s;
+
+  &:focus {
+    border-color: $color-info;
+  }
+}

@@ -1,0 +1,23 @@
+@import '../UI/theme.scss';
+
+.header {
+  padding: 15px 20px;
+  box-shadow: 0 -19px 32px 0px $color-gray-dark;
+  background-color: $color-light;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.logoLink {
+  width: 150px;
+
+  > img {
+    width: 100%;
+    position: relative;
+    top: 5px; // quick fix to align logo image. logo image has uneven top and bottom padding
+  }
+}

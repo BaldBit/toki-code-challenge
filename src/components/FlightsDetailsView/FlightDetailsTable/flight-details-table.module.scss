@@ -1,0 +1,17 @@
+@import '../../UI/theme.scss';
+
+.flightDetailsCount {
+  color: $color-gray-dark;
+  margin-bottom: 10px;
+
+  > span {
+    color: $font-color;
+    font-weight: bold;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

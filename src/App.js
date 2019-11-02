@@ -1,25 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { Provider } from 'react-redux';
+import Container from '@material-ui/core/Container';
+
+import rootSaga from './store/saga';
+import rootReducer from './store/reducers';
+
+import Home from './layouts/Home';
+import Header from './components/Header';
+
+import styles from './app.scss';
+
+const sagaMiddleware = createSagaMiddleware();
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  rootReducer,
+  process.env.NODE_ENV === 'development' ? composeEnhancers(applyMiddleware(sagaMiddleware)) : applyMiddleware(sagaMiddleware),
+);
+
+sagaMiddleware.run(rootSaga);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="appContainer">
+        <header className="headerContainer">
+          <Header />
+        </header>
+        <div className="appContent">
+          <Container className="page">
+            <Home />
+          </Container>
+        </div>
+      </div>
+    </Provider>
   );
 }
 

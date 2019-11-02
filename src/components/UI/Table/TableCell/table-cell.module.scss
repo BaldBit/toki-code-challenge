@@ -1,0 +1,54 @@
+@import '../../theme.scss';
+
+td.tableCell {
+  padding: 10px;
+  border: 1px solid $color-gray-lighter;
+  text-overflow: ellipsis;
+  word-break: normal;
+  overflow: hidden;
+  transition: background-color .3s;
+
+  &.success {
+    color: $color-success;
+  }
+
+  &.warning {
+    color: $color-warning;
+  }
+
+  &.error {
+    color: $color-error;
+  }
+
+  &.info {
+    color: $color-info;
+  }
+
+  &.isBold {
+    font-weight: bold;
+  }
+
+  &.top {
+    vertical-align: top;
+  }
+
+  &.middle {
+    vertical-align: middle;
+  }
+
+  &.bottom {
+    vertical-align: bottom;
+  }
+
+  &.left {
+    text-align: left;
+  }
+
+  &.center {
+    text-align: center;
+  }
+
+  &.right {
+    text-align: right;
+  }
+}

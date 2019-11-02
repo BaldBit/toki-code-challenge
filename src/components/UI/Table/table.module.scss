@@ -1,0 +1,26 @@
+@import '../theme.scss';
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+
+  thead td {
+    border-bottom-width: 3px;
+    border-bottom-color: $color-success;
+  }
+
+  tbody {
+    tr {
+      cursor: pointer;
+    }
+
+    tr:nth-child(2n) {
+      background: lighten($color-gray-lighter, 3%);
+    }
+
+    tr:hover td {
+      background: $color-gray-lighter;
+    }
+  }
+}
