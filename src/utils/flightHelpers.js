@@ -15,7 +15,6 @@ export default class FlightsHelpers {
   }
 
   static formatFlightDetails(type, data) {
-    console.log(data);
     if (type === CHEAP_FLIGHTS) {
       const routeInfo = data.route.split('-');
 

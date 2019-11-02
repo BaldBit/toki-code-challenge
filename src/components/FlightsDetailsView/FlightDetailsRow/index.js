@@ -10,9 +10,9 @@ const FlightDetailsRow = props => {
     <tr {...otherProps}>
       <TableCell>{type}</TableCell>
       <TableCell>{departure}</TableCell>
-      <TableCell horizontalAlign="center">{arrival}</TableCell>
-      <TableCell horizontalAlign="center">{departureTime}</TableCell>
-      <TableCell horizontalAlign="center">{arrivalTime}</TableCell>
+      <TableCell>{arrival}</TableCell>
+      <TableCell horizontalAlign="right">{departureTime}</TableCell>
+      <TableCell horizontalAlign="right">{arrivalTime}</TableCell>
     </tr>
   )
 };

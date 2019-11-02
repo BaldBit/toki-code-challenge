@@ -31,3 +31,5 @@ export const UI_STATUSES = {
   info: 'info',
   default: 'default',
 };
+
+export const FLIGHT_FETCH_TIMEOUT = 5000;

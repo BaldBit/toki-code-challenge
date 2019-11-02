@@ -7,6 +7,7 @@ import * as flightActions from '../../store/actions';
 
 import FlightsDetailsView from '../../components/FlightsDetailsView';
 import Loader from '../../components/UI/Loader';
+import Button from '../../components/UI/Button';
 
 import styles from './home.module.scss';
 
@@ -16,8 +17,12 @@ class Home extends Component {
     this.props.actions.getCheapFlights();
   }
 
+  handleRetryOnClick = () => {
+    this.props.actions.getCheapFlights();
+  }
+
   render() {
-    const { flightsData, isLoading } = this.props;
+    const { flightsData, isLoading, error } = this.props;
 
     return (
       <React.Fragment>
@@ -27,7 +32,13 @@ class Home extends Component {
             <Loader isVisible color="#2ecc71" />
           </div>
         }
-        {!isLoading &&
+        {error && !isLoading &&
+          <div className={styles.loadingContainer}>
+            <label>Data loading Error. It's not you it's us</label>
+            <Button onClick={this.handleRetryOnClick}>Please Retry</Button>
+          </div>
+        }
+        {!isLoading && !error &&
           <FlightsDetailsView data={flightsData} />
         }
       </React.Fragment>
@@ -37,7 +48,10 @@ class Home extends Component {
 
 Home.propTypes = {
   actions: PropTypes.object.isRequired,
-  error: PropTypes.object,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
   flightsData: PropTypes.array,
 };
 
