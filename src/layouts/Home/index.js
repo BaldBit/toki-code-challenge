@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import Modal from '@material-ui/core/Modal';
 
 import * as flightActions from '../../store/actions';
+import FlightHelpers from '../../utils/flightHelpers';
 
 import FlightsDetailsView from '../../components/FlightsDetailsView';
 import Loader from '../../components/UI/Loader';
@@ -19,6 +20,8 @@ class Home extends Component {
 
     this.state = {
       showModal: false,
+      editingFlight: null,
+      isEditMode: false,
     };
   }
 
@@ -30,6 +33,22 @@ class Home extends Component {
     this.props.actions.getCheapFlights();
   }
 
+  handleOnDeleteClick = (flight) => {
+    this.props.actions.deleteFlightDetails(flight);
+  }
+
+  handleOnEditClick = (flight) => {
+    this.setState({
+      showModal: true,
+      editingFlight: {
+        ...flight,
+        arrivalTime: FlightHelpers.getTimeFromPartial(flight.arrivalTime, false),
+        departureTime: FlightHelpers.getTimeFromPartial(flight.departureTime, false),
+      },
+      isEditMode: true,
+    });
+  }
+
   handleOnAddClick = () => {
     this.setState({
       showModal: true,
@@ -39,12 +58,14 @@ class Home extends Component {
   handleOnModalClose = () => {
     this.setState({
       showModal: false,
+      editingFlight: null,
+      isEditMode: false,
     });
   }
 
   render() {
     const { flightsData, isLoading, error } = this.props;
-    const { showModal } = this.state;
+    const { showModal, isEditMode, editingFlight } = this.state;
 
     return (
       <React.Fragment>
@@ -65,24 +86,24 @@ class Home extends Component {
             <div className={styles.actionBar}>
               <Button onClick={this.handleOnAddClick}>Add</Button>
             </div>
-            <FlightsDetailsView data={flightsData} />
+            <FlightsDetailsView data={flightsData} onDeleteClick={this.handleOnDeleteClick} onEditClick={this.handleOnEditClick} />
           </React.Fragment>
         }
-        {
-          <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={showModal}
-            onClose={this.handleOnModalClose}
-          >
-            <div className={styles.modal}>
-              <AddFlightDetails
-                onAddComplete={this.handleOnModalClose}
-                onAddCancel={this.handleOnModalClose}
-              />
-            </div>
-          </Modal>
-        }
+        <Modal
+          aria-labelledby="flights-edit-form-modal"
+          aria-describedby="flights-edit-form-modal"
+          open={showModal}
+          onClose={this.handleOnModalClose}
+        >
+          <div className={styles.modal}>
+            <AddFlightDetails
+              onSaveComplete={this.handleOnModalClose}
+              onCancel={this.handleOnModalClose}
+              isEditMode={isEditMode}
+              defaultValues={editingFlight}
+            />
+          </div>
+        </Modal>
       </React.Fragment>
     )
   }

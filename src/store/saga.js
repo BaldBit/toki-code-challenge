@@ -1,5 +1,5 @@
 
-import { race, all, call, put, takeLatest, delay  } from 'redux-saga/effects';
+import { race, all, call, put, takeLatest, takeEvery, delay  } from 'redux-saga/effects';
 import * as types from './actions/actionTypes';
 
 import Api from './api';
@@ -31,11 +31,29 @@ function* addNewFlight(action) {
   } catch (error) {
 
   }
+}
+
+function* editNewFlight(action) {
+  try {
+    yield put({ type: types.EDIT_FLIGHT_DETAILS_SUCCESS, data: action.data });
+  } catch (error) {
+
+  }
+}
+
+function* deleteNewFlight(action) {
+  try {
+    yield put({ type: types.DELETE_FLIGHT_DETAILS_SUCCESS, data: action.data });
+  } catch (error) {
+
+  }
 } 
 
 export default function* rootSaga() {
   yield all([
     takeLatest(types.FLIGHTS_REQUEST, requestFlights),
     takeLatest(types.ADD_FLIGHT_DETAILS, addNewFlight),
+    takeEvery(types.EDIT_FLIGHT_DETAILS, editNewFlight),
+    takeEvery(types.DELETE_FLIGHT_DETAILS, deleteNewFlight),
   ])
 }
