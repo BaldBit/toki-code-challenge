@@ -9,6 +9,7 @@
   cursor: pointer;
   margin-left: 10px;
   min-width: 90px;
+  min-width: 0;
   transition: .3s background-color, .3s color;
 
   &:hover {

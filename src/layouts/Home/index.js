@@ -84,7 +84,7 @@ class Home extends Component {
         {!isLoading && !error &&
           <React.Fragment>
             <div className={styles.actionBar}>
-              <Button onClick={this.handleOnAddClick}>Add</Button>
+              <Button onClick={this.handleOnAddClick}>Add New Flight</Button>
             </div>
             <FlightsDetailsView data={flightsData} onDeleteClick={this.handleOnDeleteClick} onEditClick={this.handleOnEditClick} />
           </React.Fragment>
