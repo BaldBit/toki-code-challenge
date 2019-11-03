@@ -51,6 +51,10 @@ const getColumns = (data) => ([
       isEnabled: true,
     },
   },
+  {
+    name: 'Actions',
+    width: 80,
+  },
 ]);
 
 export default getColumns;

@@ -8,16 +8,19 @@ import getColumns from './columnDefinition';
 import styles from './flight-details-table.module.scss';
 
 const FlightDetailsTable = props => {
-  const { flightDetails } = props;
+  const { flightDetails, onEditClick, onDeleteClick } = props;
 
   const renderFlightDetails = (flightDetails) => flightDetails.map(flight => (
     <FlightDetailsRow
       key={`flight-data-row-${flight.id}`}
+      id={flight.id}
       type={flight.type}
       departure={flight.departure}
       arrival={flight.arrival}
       departureTime={flight.departureTime}
       arrivalTime={flight.arrivalTime}
+      onEditClick={onEditClick}
+      onDeleteClick={onDeleteClick}
     />
   ));
 
@@ -43,6 +46,8 @@ const FlightDetailsTable = props => {
 
 FlightDetailsTable.propTypes = {
   flightDetails: PropTypes.array,
+  onEditClick: PropTypes.func,
+  onDeleteClick: PropTypes.func,
 };
 
 export default FlightDetailsTable;

@@ -3,20 +3,24 @@ import uniqueId from 'lodash-es/uniqueId';
 import { CHEAP_FLIGHTS, BUSINESS_FLIGHTS } from './constants';
 
 export default class FlightsHelpers {
-  static formatTime(time) {
+  static formatTime(time, hour12 = true) {
     try {
       return  new Date(time).toLocaleTimeString(undefined, {
         timeStyle: 'medium',
-        hour12: true,
+        hour12: hour12,
       }).toUpperCase();
     } catch (error) {
       throw Error('Timer conversion error');
     }
   }
 
-  static getTimeFromPartial(timeString) {
+  static getTimeFromPartial(timeString, hours12 = true) {
+    return FlightsHelpers.formatTime(FlightsHelpers.getDateFromTime(timeString), hours12);
+  }
+
+  static getDateFromTime(timeString) {
     const today = new Date();
-    return FlightsHelpers.formatTime(new Date(`${today.toISOString().split('T')[0]} ${timeString}`));
+    return new Date(`${today.toISOString().split('T')[0]} ${timeString}`)
   }
 
   static formatFlightDetails(type, data) {
