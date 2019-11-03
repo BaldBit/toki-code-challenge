@@ -62,7 +62,7 @@ class Home extends Component {
         }
         {!isLoading && !error &&
           <React.Fragment>
-            <div>
+            <div className={styles.actionBar}>
               <Button onClick={this.handleOnAddClick}>Add</Button>
             </div>
             <FlightsDetailsView data={flightsData} />
@@ -76,7 +76,10 @@ class Home extends Component {
             onClose={this.handleOnModalClose}
           >
             <div className={styles.modal}>
-              <AddFlightDetails />
+              <AddFlightDetails
+                onAddComplete={this.handleOnModalClose}
+                onAddCancel={this.handleOnModalClose}
+              />
             </div>
           </Modal>
         }

@@ -15,7 +15,9 @@ function* requestFlights() {
 
     if (flightsData) {
       yield put({ type: types.FLIGHT_REQUEST_SUCCESS, flightsData });
-    } else {
+    } 
+    
+    if (timeout) {
       yield put({ type: types.FLIGHT_REQUEST_FAIL, error: 'Request Timeout' });
     }
   } catch (error) {

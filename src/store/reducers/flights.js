@@ -17,8 +17,7 @@ export default function(state = defaultState, action = null) {
     case types.FLIGHT_REQUEST_FAIL:
       return { ...state, isLoading: false, error: action.error };
     case types.ADD_FLIGHT_DETAILS:
-      console.log(action);
-      return { ...state, flightsData: [...state.flightsData, action.data] }
+      return { ...state, flightsData: [action.data, ...state.flightsData] }
     default:
       return state;
   }

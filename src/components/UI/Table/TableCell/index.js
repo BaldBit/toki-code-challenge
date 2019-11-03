@@ -9,7 +9,6 @@ import styles from './table-cell.module.scss';
 
 const TableCell = props => {
   const { formating, children, isBold, verticalAlign, horizontalAlign, ...otherProps } = props;
-  //console.log(typeof children, children)
 
   return (
     <td

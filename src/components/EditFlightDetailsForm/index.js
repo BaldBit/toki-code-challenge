@@ -1,9 +1,13 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash-es/isEmpty';
-import { Field, reduxForm, SubmissionError } from 'redux-form'
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 
-import InputText from '../UI/InputText';
+
+import ReduxFormField from '../ReduxFormField';
+import Button from '../UI/Button';
+
+import styles from './edit-flight-details.module.scss';
 
 function submit(values, onSubmit) {
   if (isEmpty(values)) {
@@ -14,24 +18,39 @@ function submit(values, onSubmit) {
       departureTime: 'Departure time can\'t be empty',
       _error: 'Login failed!'
     });
-  } else if (values.departure === '') {
+  }
+
+  if (isEmpty(values.type)) {
+    throw new SubmissionError({
+      type: 'Flight type can\'t be empty',
+      _error: 'Login failed!'
+    });
+  }
+  
+  if (isEmpty(values.departure)) {
     throw new SubmissionError({
       departure: 'Departure can\'t be empty',
       _error: 'Login failed!'
     });
-  } else if (values.arrival === '') {
+  }
+  
+  if (isEmpty(values.arrival)) {
     throw new SubmissionError({
       arrival: 'Arrival can\'t be empty',
       _error: 'Login failed!'
     });
-  } else if (values.arrivalTime === '') {
-    throw new SubmissionError({
-      arrivalTime: 'Arrival time can\'t be empty',
-      _error: 'Login failed!'
-    });
-  } else if (values.departureTime === '') {
+  }
+
+  if (isEmpty(values.departureTime)) {
     throw new SubmissionError({
       departureTime: 'Departure time can\'t be empty',
+      _error: 'Login failed!'
+    });
+  }
+  
+  if (isEmpty(values.arrivalTime)) {
+    throw new SubmissionError({
+      arrivalTime: 'Arrival time can\'t be empty',
       _error: 'Login failed!'
     });
   }
@@ -40,34 +59,30 @@ function submit(values, onSubmit) {
 }
 
 let EditFlightDetailsForm = memo((props) => {
-  const { handleSubmit, error, onSubmit } = props;
-
+  const { handleSubmit, error, onSubmit, onCancel, pristine, reset, submitting } = props;
+  
   return (
     <form onSubmit={handleSubmit((values) => submit(values, onSubmit))}>
-      <div>
-        <label htmlFor="type">Flight Class</label>
-        <Field name="type" component="select" value="Cheap">
-          <option value="cheap">Cheap</option>
-          <option value="business">Business</option>
-        </Field>
+      <Field label="Type" placeholder="Select Flight Type" name="type" component={ReduxFormField} type="select" list={['cheap', 'business']} labelWidth={130} />
+      <Field label="Departure" name="departure" component={ReduxFormField} type="text" labelWidth={130} />
+      <Field label="Arrival" name="arrival" component={ReduxFormField} type="text" labelWidth={130} />
+      <Field label="Departure Time" name="departureTime" component={ReduxFormField} type="time" labelWidth={130} />
+      <Field label="Arrival Time" name="arrivalTime" component={ReduxFormField} type="time" labelWidth={130} />
+      <div className={styles.formFooter}>
+        <Button
+          isSecondary
+          onClick={() => {
+            reset();
+
+            if (onCancel) {
+              onCancel();
+            }
+          }}
+        >
+          Cancel
+        </Button>
+        <Button type="submit" disabled={pristine || submitting}>Save</Button>
       </div>
-      <div>
-        <label htmlFor="departure">Departure</label>
-        <Field name="departure" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="arrival">Arrival</label>
-        <Field name="arrival" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="departureTime">Departure Time</label>
-        <Field name="departureTime" component="input" type="text" />
-      </div>
-      <div>
-        <label htmlFor="arrivalTime">Arrival Time</label>
-        <Field name="arrivalTime" component="input" type="text" />
-      </div>
-      <button type="submit">Submit</button>
     </form>
   );
 });
@@ -78,7 +93,7 @@ EditFlightDetailsForm.propTypes = {
 
 EditFlightDetailsForm = reduxForm({
   // a unique name for the form
-  form: 'contact',
+  form: 'editFlightDetails',
 })(EditFlightDetailsForm)
 
 export default EditFlightDetailsForm;
