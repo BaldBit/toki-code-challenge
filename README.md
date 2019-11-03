@@ -5,6 +5,8 @@
 - Components
 - TODO
 
+This is an application I built to demonstrate CRUD (Create, Read, Update, Delete) functionalities using React, Redux, Redux-Saga and Redux-Form. Apart from above mentioned techologies I used Lodash-ES, CSS-Modules, SCSS.
+
 ## Setup
 
 To setup the project run below command.
