@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './input-text.module.scss';
 
@@ -26,16 +27,17 @@ class InputText extends Component {
   };
 
   render() {
-    const { onChange, ...otherProps } = this.props;
+    const { onChange, className, ...otherProps } = this.props;
     const { value } = this.state;
 
     return (
-      <input {...otherProps} className={styles.inputText} type="text" value={value} onChange={this.handleOnChange} />
+      <input {...otherProps} className={cn(className, styles.inputText)} type="text" value={value} onChange={this.handleOnChange} />
     );
   }
 }
 
 InputText.propTypes = {
+  className: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
 };

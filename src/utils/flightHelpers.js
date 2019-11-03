@@ -14,6 +14,11 @@ export default class FlightsHelpers {
     }
   }
 
+  static getTimeFromPartial(timeString) {
+    const today = new Date();
+    return FlightsHelpers.formatTime(new Date(`${today.toISOString().split('T')[0]} ${timeString}`));
+  }
+
   static formatFlightDetails(type, data) {
     if (type === CHEAP_FLIGHTS) {
       const routeInfo = data.route.split('-');

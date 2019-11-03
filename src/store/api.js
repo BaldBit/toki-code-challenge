@@ -31,7 +31,6 @@ export default class Api {
       // format data according to our own
       const cheapFlights = cheap.data.map(data => FlightHelpers.formatFlightDetails(CHEAP_FLIGHTS, data));
       const businessFlights = business.data.map(data => FlightHelpers.formatFlightDetails(BUSINESS_FLIGHTS, data));
-
       return cheapFlights.concat(businessFlights);
     })).catch(error => {
       throw new Error(error);

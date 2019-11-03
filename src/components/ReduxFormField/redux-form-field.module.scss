@@ -1,0 +1,49 @@
+@import '../UI/theme.scss';
+
+.fieldContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fieldInputContainer {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.fieldLabel {
+  padding-right: 20px;
+}
+
+.inputControl {
+  width: 100%;
+}
+
+.errorField {
+  color: $color-error;
+  font-size: 0.8em;
+}
+
+.timeInput {
+  border-radius: 5px;
+  border: 1px solid $color-gray-light!important;
+  padding: 1px 0!important;
+  width: 100%;
+  transition: border-color .3s;
+
+  :global {
+    .MuiInput-input {
+      padding: 0px 0 0 8px !important;
+      height: auto!important;
+    }
+
+    .MuiInput-formControl:after, .MuiInput-formControl:before {
+      display: none;
+    }
+  }
+
+  &:focus {
+    border-color: $color-info;
+  }
+}

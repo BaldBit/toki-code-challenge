@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import Modal from '@material-ui/core/Modal';
 
 import * as flightActions from '../../store/actions';
 
@@ -9,9 +10,17 @@ import FlightsDetailsView from '../../components/FlightsDetailsView';
 import Loader from '../../components/UI/Loader';
 import Button from '../../components/UI/Button';
 
+import AddFlightDetails from '../AddFlightDetails';
 import styles from './home.module.scss';
 
 class Home extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      showModal: false,
+    };
+  }
 
   componentDidMount() {
     this.props.actions.getCheapFlights();
@@ -21,8 +30,21 @@ class Home extends Component {
     this.props.actions.getCheapFlights();
   }
 
+  handleOnAddClick = () => {
+    this.setState({
+      showModal: true,
+    });
+  }
+
+  handleOnModalClose = () => {
+    this.setState({
+      showModal: false,
+    });
+  }
+
   render() {
     const { flightsData, isLoading, error } = this.props;
+    const { showModal } = this.state;
 
     return (
       <React.Fragment>
@@ -39,7 +61,27 @@ class Home extends Component {
           </div>
         }
         {!isLoading && !error &&
-          <FlightsDetailsView data={flightsData} />
+          <React.Fragment>
+            <div className={styles.actionBar}>
+              <Button onClick={this.handleOnAddClick}>Add</Button>
+            </div>
+            <FlightsDetailsView data={flightsData} />
+          </React.Fragment>
+        }
+        {
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={showModal}
+            onClose={this.handleOnModalClose}
+          >
+            <div className={styles.modal}>
+              <AddFlightDetails
+                onAddComplete={this.handleOnModalClose}
+                onAddCancel={this.handleOnModalClose}
+              />
+            </div>
+          </Modal>
         }
       </React.Fragment>
     )
