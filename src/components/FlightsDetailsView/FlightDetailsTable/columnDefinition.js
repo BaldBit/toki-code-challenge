@@ -1,60 +1,64 @@
-import uniqBy from 'lodash-es/uniqBy';
-import flatMap from 'lodash-es/flatMap';
+import uniqBy from "lodash-es/uniqBy";
+import flatMap from "lodash-es/flatMap";
 
-import { TABLE_FILTER_TYPES, CHEAP_FLIGHTS, BUSINESS_FLIGHTS } from '../../../utils/constants';
+import {
+  TABLE_FILTER_TYPES,
+  CHEAP_FLIGHTS,
+  BUSINESS_FLIGHTS
+} from "../../../utils/constants";
 
-const getColumns = (data) => ([
+const getColumns = data => [
   {
-    name: 'Class',
-    mapping: 'type',
+    name: "Class",
+    mapping: "type",
     filter: {
       isEnabled: true,
       type: TABLE_FILTER_TYPES.list,
       list: [CHEAP_FLIGHTS, BUSINESS_FLIGHTS]
-    },
+    }
   },
   {
-    name: 'Departure',
-    mapping: 'departure',
+    name: "Departure",
+    mapping: "departure",
     sort: {
-      isEnabled: true,
+      isEnabled: true
     },
     filter: {
       isEnabled: true,
       type: TABLE_FILTER_TYPES.list,
-      list: flatMap(uniqBy(data, 'departure'), (item) => item.departure).sort(),
-    },
+      list: flatMap(uniqBy(data, "departure"), item => item.departure).sort()
+    }
   },
   {
-    name: 'Arrival',
-    mapping: 'arrival',
+    name: "Arrival",
+    mapping: "arrival",
     sort: {
-      isEnabled: true,
+      isEnabled: true
     },
     filter: {
       isEnabled: true,
       type: TABLE_FILTER_TYPES.list,
-      list: flatMap(uniqBy(data, 'arrival'), (item) => item.arrival).sort(),
-    },
+      list: flatMap(uniqBy(data, "arrival"), item => item.arrival).sort()
+    }
   },
   {
-    name: 'Departure Time',
-    mapping: 'departureTime',
+    name: "Departure Time",
+    mapping: "departureTime",
     sort: {
-      isEnabled: true,
-    },
+      isEnabled: true
+    }
   },
   {
-    name: 'Arrival Time',
-    mapping: 'arrivalTime',
+    name: "Arrival Time",
+    mapping: "arrivalTime",
     sort: {
-      isEnabled: true,
-    },
+      isEnabled: true
+    }
   },
   {
-    name: 'Actions',
-    width: 80,
-  },
-]);
+    name: "Actions",
+    width: "80"
+  }
+];
 
 export default getColumns;
